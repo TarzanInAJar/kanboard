@@ -14,7 +14,7 @@ COPY docker/php/env.conf /etc/php7/php-fpm.d/env.conf
 RUN cd /var/www/app/$URL_PREFIX && composer --prefer-dist --no-dev --optimize-autoloader --quiet install
 RUN chown -R nginx:nginx /var/www/app/$URL_PREFIX/data /var/www/app/$URL_PREFIX/plugins
 
-RUN if [ ! -z "$URL_PREFIX" ]; then sed -i -r "s|root(\s+)/var/www/app;|root\1/var/www/app/$URL_PREFIX;|" /etc/nginx/nginx.conf; fi
+RUN if [ ! -z "$URL_PREFIX" ]; then sed -i -r "s|try_files(.*)/index.php|try_files\1/$URL_PREFIX/index.php|" /etc/nginx/nginx.conf; fi
 RUN if [ ! -z "$URL_PREFIX" ]; then sed -i -r "s|location(\s+)/|location\1/$URL_PREFIX|" /etc/nginx/nginx.conf; fi
 
 VOLUME /var/www/app/$URL_PREFIX/data
