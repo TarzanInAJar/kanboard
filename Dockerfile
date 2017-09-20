@@ -16,6 +16,7 @@ RUN chown -R nginx:nginx /var/www/app/$URL_PREFIX/data /var/www/app/$URL_PREFIX/
 
 RUN if [ ! -z "$URL_PREFIX" ]; then sed -i -r "s|try_files(.*)/index.php|try_files\1/$URL_PREFIX/index.php|" /etc/nginx/nginx.conf; fi
 RUN if [ ! -z "$URL_PREFIX" ]; then sed -i -r "s|location(\s+)/|location\1/$URL_PREFIX|" /etc/nginx/nginx.conf; fi
+RUN if [ ! -z "$URL_PREFIX" ]; then sed -i -r "s|/var/www/app|/var/www/app/$URL_PREFIX|" /var/spool/cron/crontabs/nginx; fi
 
 VOLUME /var/www/app/$URL_PREFIX/data
 VOLUME /var/www/app/$URL_PREFIX/plugins
