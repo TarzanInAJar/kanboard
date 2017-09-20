@@ -3,7 +3,6 @@ FROM fguillot/alpine-nginx-php7
 ARG URL_PREFIX=''
 
 RUN mkdir -p /var/www/app/$URL_PREFIX
-
 COPY . /var/www/app/$URL_PREFIX
 
 COPY docker/kanboard/config.php /var/www/app/$URL_PREFIX/config.php
